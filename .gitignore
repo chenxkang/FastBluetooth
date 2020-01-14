@@ -1,5 +1,6 @@
 *.iml
 .gradle
+.idea
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -13,33 +14,11 @@
 .externalNativeBuild
 .cxx
 
-.idea/.name
-
-.idea/codeStyles/Project.xml
-
-.idea/compiler.xml
-
-.idea/dictionaries/xiaokang.xml
-
-.idea/encodings.xml
-
-.idea/gradle.xml
-
-.idea/misc.xml
-
-.idea/runConfigurations.xml
-
-.idea/vcs.xml
-
 app/src/androidTest/java/com/chenxkang/android/demo/ExampleInstrumentedTest.java
 
 app/src/test/java/com/chenxkang/android/demo/ExampleUnitTest.java
 
 core/src/androidTest/java/com/chenxkang/android/fastbluetooth/ExampleInstrumentedTest.java
-
-gradle/wrapper/gradle-wrapper.jar
-
-gradle/wrapper/gradle-wrapper.properties
 
 gradlew
 
