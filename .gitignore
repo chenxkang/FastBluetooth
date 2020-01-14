@@ -1,6 +1,5 @@
 *.iml
 .gradle
-.idea
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -19,9 +18,5 @@ app/src/androidTest/java/com/chenxkang/android/demo/ExampleInstrumentedTest.java
 app/src/test/java/com/chenxkang/android/demo/ExampleUnitTest.java
 
 core/src/androidTest/java/com/chenxkang/android/fastbluetooth/ExampleInstrumentedTest.java
-
-gradlew
-
-gradlew.bat
 
 core/src/test/java/com/chenxkang/android/fastbluetooth/ExampleUnitTest.java
