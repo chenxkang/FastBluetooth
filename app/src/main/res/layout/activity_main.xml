@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/black"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="@string/app_name"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/main_bluetooth_mobile_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="当前设备蓝牙已关闭"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/border_white_bg"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="蓝牙设备信息"
+            android:textColor="@color/color_333"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/main_bluetooth_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="蓝牙名称：......"
+            android:textColor="@color/color_666"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/main_bluetooth_class_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="蓝牙类型：......"
+            android:textColor="@color/color_666"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/main_bluetooth_address_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="蓝牙地址：......"
+            android:textColor="@color/color_666"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/main_bluetooth_connect_btn"
+            android:layout_width="56dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:background="@drawable/button_blue_bg"
+            android:text="连接"
+            android:textColor="@color/color_white"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/main_bluetooth_search_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/button_bg"
+            android:text="搜索"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/main_bluetooth_close_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/button_bg"
+            android:text="断开"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

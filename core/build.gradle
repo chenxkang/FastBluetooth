@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+
+def config = rootProject.ext.android
+android {
+    compileSdkVersion config.compileSdkVersion as int
+    defaultConfig {
+        minSdkVersion config.minSdkVersion as int
+        targetSdkVersion config.targetSdkVersion as int
+        versionCode rootProject.SDK_VERSION_CODE as int
+        versionName rootProject.SDK_VERSION_NAME
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    task makeJar(type: Copy) {
+        //删除存在的
+        delete "build/libs/${rootProject.SDK_VERSION_NAME}_${rootProject.SDK_VERSION_CODE}.jar"
+        //设置拷贝的文件
+        from('build/intermediates/packaged-classes/release/')
+        //打进jar包后的文件目录
+        into('build/libs/')
+        //将classes.jar放入build/libs/目录下
+        include('classes.jar')
+        //重命名
+        rename('classes.jar', "${rootProject.SDK_VERSION_NAME}_${rootProject.SDK_VERSION_CODE}.jar")
+    }
+
+    makeJar.dependsOn(build)
+}
+
+def lib = rootProject.ext.supportDependencies
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation lib.supportAppcompat
+    testImplementation lib.testJunit
+    androidTestImplementation lib.testRunner
+    androidTestImplementation lib.testEspresso
+}
