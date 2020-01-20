@@ -53,3 +53,7 @@
                 // 连接失败
             }
         });
+
+#### 4、向蓝牙打印机发送数据
+     BTManager.getDefault().writeData(byte[] data);
+     
