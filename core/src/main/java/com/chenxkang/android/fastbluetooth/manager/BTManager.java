@@ -84,7 +84,7 @@ public class BTManager {
     }
 
     public BTManager startDiscovery() {
-        if (isSupport()){
+        if (isSupport()) {
             if (!isEnabled())
                 bluetoothAdapter.enable();
 
@@ -97,7 +97,7 @@ public class BTManager {
     }
 
     public BTManager cancelDiscovery() {
-        if (isSupport()){
+        if (isSupport()) {
             if (bluetoothAdapter.isDiscovering())
                 bluetoothAdapter.cancelDiscovery();
         }
@@ -144,6 +144,21 @@ public class BTManager {
         return true;
     }
 
+    public void post(List<byte[]> commands, @NonNull OnResultListener listener) {
+        if (commands != null && commands.size() > 0) {
+            for (byte[] command : commands) {
+                if (!writeData(command)) {
+                    listener.onError("The command is error.");
+                    break;
+                }
+            }
+            listener.onSuccess();
+            return;
+        }
+
+        listener.onError("commands is null.");
+    }
+
     public void post(String mac, final List<byte[]> commands, @NonNull final OnResultListener listener) {
         if (TextUtils.isEmpty(mac)) {
             listener.onError("The mac can't be null.");
@@ -160,7 +175,10 @@ public class BTManager {
             public void onPostConnect() {
                 if (commands != null) {
                     for (byte[] command : commands) {
-                        writeData(command);
+                        if (!writeData(command)) {
+                            listener.onError("The command is error.");
+                            break;
+                        }
                     }
                     listener.onSuccess();
                 }
@@ -173,7 +191,7 @@ public class BTManager {
         });
     }
 
-    public boolean writeData(byte[] data) {
+    private boolean writeData(byte[] data) {
         if (iOperator != null) {
             return iOperator.writeData(data);
         }
