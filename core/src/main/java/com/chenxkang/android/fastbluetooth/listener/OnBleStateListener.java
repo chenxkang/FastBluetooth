@@ -1,4 +1,6 @@
-package com.chenxkang.android.fastbluetooth;
+package com.chenxkang.android.fastbluetooth.listener;
+
+import com.chenxkang.android.fastbluetooth.state.BTState;
 
 /**
  * author: chenxkang

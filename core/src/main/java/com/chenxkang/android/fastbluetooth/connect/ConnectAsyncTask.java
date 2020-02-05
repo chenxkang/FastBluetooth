@@ -1,7 +1,10 @@
-package com.chenxkang.android.fastbluetooth;
+package com.chenxkang.android.fastbluetooth.connect;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+
+import com.chenxkang.android.fastbluetooth.operator.IBTOperator;
+import com.chenxkang.android.fastbluetooth.listener.OnConnectListener;
 
 /**
  * author: chenxkang

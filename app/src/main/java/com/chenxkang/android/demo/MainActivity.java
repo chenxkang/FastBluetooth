@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,8 +17,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chenxkang.android.fastbluetooth.BTManager;
-import com.chenxkang.android.fastbluetooth.OnConnectListener;
+import com.chenxkang.android.fastbluetooth.command.BTCommand;
+import com.chenxkang.android.fastbluetooth.listener.OnConnectListener;
+import com.chenxkang.android.fastbluetooth.listener.OnResultListener;
+import com.chenxkang.android.fastbluetooth.manager.BTManager;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.main_bluetooth_search_btn).setOnClickListener(this);
         findViewById(R.id.main_bluetooth_close_btn).setOnClickListener(this);
+        findViewById(R.id.main_bluetooth_print_btn).setOnClickListener(this);
         mConnectBtn.setOnClickListener(this);
 
         changeBtnStatus(true, "连接");
@@ -90,7 +96,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.main_bluetooth_connect_btn:
                 connectDevice();
                 break;
+            case R.id.main_bluetooth_print_btn:
+                printTest();
+                break;
         }
+    }
+
+    private void printTest() {
+        if (selectedDevice == null) {
+            Toast.makeText(MainActivity.this, "请搜索蓝牙设备！", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        List<byte[]> commands = null;
+        try {
+            commands = BTCommand.getDefault()
+                    .init(BTCommand.CPCL, 76, 130)
+                    .printLine(10, 60, 500, 60, 1)
+                    .printText(BTCommand.TEXT, 10, 70, 8, 2, 2, true, "中华人民共和国")
+                    .printBox(10, 130, 500, 160, 1)
+                    .printText(BTCommand.TEXT_WHITE, 10, 170, 8, "我爱你")
+                    .printBarcode(BTCommand.BARCODE, BTCommand.CODE128, 10, 210, 2, 1, 80, true, "20200520")
+                    .printQRCode(BTCommand.BARCODE, 300, 210, 5, "我爱中国")
+                    .printImage(10, 320, BitmapFactory.decodeResource(getResources(), R.drawable.icon_fu), 100, 100)
+                    .commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        BTManager.getDefault().post(selectedDevice.getAddress(), commands, new OnResultListener() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(MainActivity.this, "打印成功", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(MainActivity.this, error, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void connectDevice() {
@@ -152,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case BluetoothDevice.ACTION_ACL_DISCONNECTED:
                     Log.i(BT_TAG, "onReceive: ACTION_ACL_DISCONNECTED");
+                    BTManager.getDefault().disconnect();
                     Toast.makeText(MainActivity.this, "远程蓝牙设备已断开", Toast.LENGTH_LONG).show();
                     changeBtnStatus(true, "连接");
                     break;
@@ -175,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case BluetoothAdapter.STATE_OFF:
                 Log.i(BT_TAG, "changeConnectStatus: STATE_OFF");
+                BTManager.getDefault().disconnect();
                 mMobileStatusTv.setText("当前设备蓝牙已关闭");
                 break;
             case BluetoothAdapter.STATE_CONNECTING:
@@ -191,6 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case BluetoothAdapter.STATE_DISCONNECTED:
                 Log.i(BT_TAG, "changeConnectStatus: STATE_DISCONNECTED");
+                BTManager.getDefault().disconnect();
                 changeBtnStatus(true, "连接");
                 break;
         }

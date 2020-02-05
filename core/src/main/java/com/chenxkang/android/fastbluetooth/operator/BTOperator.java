@@ -1,4 +1,4 @@
-package com.chenxkang.android.fastbluetooth;
+package com.chenxkang.android.fastbluetooth.operator;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;

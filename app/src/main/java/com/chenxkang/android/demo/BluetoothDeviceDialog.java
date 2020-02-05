@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chenxkang.android.fastbluetooth.BTManager;
+import com.chenxkang.android.fastbluetooth.manager.BTManager;
 
 /**
  * author: chenxkang
