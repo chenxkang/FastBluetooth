@@ -149,7 +149,7 @@ public class BTManager {
             for (byte[] command : commands) {
                 if (!writeData(command)) {
                     listener.onError("The command is error.");
-                    break;
+                    return;
                 }
             }
             listener.onSuccess();
@@ -173,15 +173,7 @@ public class BTManager {
 
             @Override
             public void onPostConnect() {
-                if (commands != null) {
-                    for (byte[] command : commands) {
-                        if (!writeData(command)) {
-                            listener.onError("The command is error.");
-                            break;
-                        }
-                    }
-                    listener.onSuccess();
-                }
+                post(commands, listener);
             }
 
             @Override
